@@ -340,11 +340,6 @@ const enemyTargets = [
   { lat: 51.4739, lon: 46.1930, name: 'аеродром "Енгельс-2"' },
   { lat: 48.9545, lon: 40.2954, name: 'аеродром "Міллєрово"' },
   { lat: 48.3079, lon: 46.2017, name: 'аеродром "Ахтубінськ"' },
-  { lat: 54.7176, lon: 36.2625, name: 'Калуга (військова частина)' },
-  { lat: 52.0000, lon: 38.0000, name: 'Тамбов (нафтобаза)' },
-  { lat: 44.7570, lon: 37.7600, name: 'Новоросійськ (військово-морська база)' },
-  { lat: 55.7558, lon: 37.6173, name: 'Москва (Генеральний штаб)' },
-  { lat: 59.9343, lon: 30.3351, name: 'Санкт-Петербург (військовий округ)' }
 ];
 
 
@@ -793,7 +788,6 @@ function showLaunchMessage(message, showImage = false) { // Added showImage para
       radioImageEl.style.display = 'none'; // Ensure image is hidden when message disappears
     }, 500); // Чекаємо завершення переходу, перш ніж приховати елемент
   }, 2500); // Показати протягом 1.5 секунди
-
 }
 
 
