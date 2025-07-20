@@ -333,17 +333,8 @@ const icons = {
   })
 };
 
-// --- Військові об'єкти ---
-const enemyTargets = [
-  { lat: 54.2149, lon: 34.3572, name: 'аеродром "Шайковка"' },
-  { lat: 55.4245, lon: 42.3027, name: 'аеродром "Саваслейка"' },
-  { lat: 51.4739, lon: 46.1930, name: 'аеродром "Енгельс-2"' },
-  { lat: 48.9545, lon: 40.2954, name: 'аеродром "Міллєрово"' },
-  { lat: 48.3079, lon: 46.2017, name: 'аеродром "Ахтубінськ"' },
-];
-
-
-const targets = [
+// --- Військові об'єкти (Повний список) ---
+const allPotentialTargets = [
   { lat: 50.345, lon: 30.890, name: 'Бориспільський аеропорт', type: 'military_airport', hp: 7, maxHp: 7, destroyed: false },
   { lat: 50.160, lon: 30.290, name: 'Військова частина "Васильків"', type: 'military_base', hp: 7, maxHp: 7, destroyed: false },
   { lat: 50.375, lon: 30.560, name: 'Київська ТЕЦ-5', type: 'power_plant', hp: 10, maxHp: 10, destroyed: false },
@@ -357,7 +348,14 @@ const targets = [
   { lat: 46.47, lon: 30.73, name: 'Порт "Одеса"', type: 'port', hp: 10, maxHp: 10, destroyed: false, generatesBonus: true, bonusType: 'coins', bonusAmount: 25 }
 ];
 
+function getRandomTargets(count, sourceArray) {
+  const shuffled = [...sourceArray].sort(() => 0.5 - Math.random()); // Перемішуємо масив
+  return shuffled.slice(0, count); // Повертаємо перші 'count' елементів
+}
+
 // --- Маркери військових об'єктів ---
+const targets = getRandomTargets(4, allPotentialTargets); // Вибираємо 4 випадкові цілі
+
 targets.forEach(t => {
   t.marker = L.marker([t.lat, t.lon]).addTo(map).bindPopup(`${t.name} (HP: ${t.hp}/${t.maxHp})`);
 });
@@ -378,7 +376,7 @@ function handleShahedHit(target) {
   showExplosionAnimation([target.lat, target.lon]); // Анімація вибуху при влучанні в ціль
 
   if (target.marker && map.hasLayer(target.marker)) {
-    target.marker.setPopupContent(`${t.name} (HP: ${t.hp}/${t.maxHp})`);
+    target.marker.setPopupContent(`${target.name} (HP: ${target.hp}/${target.maxHp})`);
   }
 
   if (target.hp <= 0 && !target.destroyed) {
