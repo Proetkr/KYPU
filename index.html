@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Симулятор ППО України</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+</head>
+<body>
+  <div class="controls">
+    <div class="collapsible-section">
+      <div class="collapsible-header" id="pvoHeader">
+        <h2>Розміщення ППО <span>▼</span></h2>
+      </div>
+      <div class="collapsible-content collapsed" id="pvoContent">
+        <div class="pvo-category-row">
+          <h3>Ракетні ППО</h3>
+          <button class="pvo-btn patriot pvo-select-btn" data-type="patriot">
+            <img src="https://i.ibb.co/pBnQSZhB/54675444754-3.png" alt="Patriot" />
+            <span>Patriot</span>
+          </button>
+          <button class="pvo-btn s300 pvo-select-btn" data-type="s300">
+            <img src="https://i.ibb.co/3mYKkP95/300.png" alt="S-300" />
+            <span>S-300</span>
+          </button>
+          <button class="pvo-btn s100 pvo-select-btn" data-type="s100">
+            <img src="https://i.ibb.co/C304d57H/s100.png" alt="S-100" />
+            <span>S-100</span>
+          </button>
+          <button class="pvo-btn thaad pvo-select-btn" data-type="thaad">
+            <img src="https://i.ibb.co/ychN5HBc/2.png" alt="THAAD" />
+            <span>THAAD</span>
+          </button>
+          <button class="pvo-btn samp-t pvo-select-btn" data-type="samp-t">
+            <img src="https://i.ibb.co/k6Wf6FKh/samp-t.png" alt="SAMP/T" />
+            <span>SAMP/T</span>
+          </button>
+          <button class="pvo-btn iris-t pvo-select-btn" data-type="iris-t">
+            <img src="https://i.ibb.co/bj38tZkX/iris.png" alt="IRIS-T" />
+            <span>IRIS-T</span>
+          </button>
+        </div>
+
+        <div class="pvo-category-row">
+          <h3>Мобільні ППО</h3>
+          <button class="pvo-btn mobile pvo-select-btn" data-type="mobile">
+            <img src="https://i.ibb.co/qM0D0sf3/mobile.png" alt="Mobile PVO" />
+            <span>Мобільна ППО</span>
+          </button>
+          <button class="pvo-btn gunner pvo-select-btn" data-type="gunner">
+            <img src="https://i.ibb.co/qM0D0sf3/mobile.png" alt="Gunner" />
+            <span>Кулеметник</span>
+          </button>
+          <button class="pvo-btn gepard pvo-select-btn" data-type="gepard">
+            <img src="https://i.ibb.co/wrFNjq6f/gep.png" alt="Gepard" />
+            <span>Gepard</span>
+          </button>
+          <button class="pvo-btn drone-interceptor pvo-select-btn" data-type="drone-interceptor">
+            <img src="https://i.ibb.co/LXvxrLX2/image.png" alt="Drone Interceptor" />
+            <span>Дрон-перехоплювач</span>
+          </button>
+        </div>
+
+        <div class="pvo-category-row">
+          <h3>РЕБ (Радіоелектронна боротьба)</h3>
+          <button class="pvo-btn reb pvo-select-btn" data-type="reb">
+            <img src="https://i.ibb.co/nqpCJxSs/image.png" alt="REB" />
+            <span>РЕБ</span>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="pvo-category-row">
+      <h3>Покращення ППО</h3>
+      <button class="action-button upgrade-btn" data-upgrade-type="radius">
+        Збільшити радіус ППО (Баз. 50 монет)
+      </button>
+      <button class="action-button upgrade-btn" data-upgrade-type="efficiency">
+        Збільшити ефективність ППО (Баз. 75 монет)
+      </button>
+    </div>
+
+    <div class="action-buttons-container">
+      <button class="action-button start-game" id="startBtn">Розпочати гру</button>
+      <button class="action-button reset" onclick="location.reload()">Скинути гру</button>
+      <button class="action-button repair" id="repairBtn">Ремонтувати об'єкти (10 монет)</button>
+      <button class="action-button build-factory" id="factoryBtn">Побудувати ракетний завод (50 монет)</button>
+      <button class="action-button fire-missile" id="fireBtn">Завдати удар по ворогу (850 монет)</button>
+      <button class="action-button sell-pvo" id="sellPVOBtn">Продати ППО</button>
+    </div>
+  </div>
+  <div id="launchMessage">
+      <p id="launchMessageText"></p>
+      <img id="radioImage" src="https://i.ibb.co/XxQjCtXQ/photo-2025-07-19-02-38-18.jpg" alt="Radio Icon" style="width: 50px; height: 50px; margin-top: 10px; display: none;">
+  </div>
+  <div id="map"></div>
+
+  <div id="gameStatsOverlay">
+    <div id="coinDisplay">Монети: 0</div>
+    <div id="interceptedDisplay">Перехоплено: 0</div>
+    <div id="waveDisplay">Хвиля: 0</div>
+    <div id="waveTimerDisplay">Наступна хвиля через: 25 сек.</div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

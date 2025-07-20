@@ -1,0 +1,423 @@
+/* === CSS оформлення для гри === */
+
+body {
+  background-color: #111;
+  color: #eee;
+  font-family: 'Arial', sans-serif;
+  margin: 0;
+  padding: 0; /* Карта займає всю висоту */
+}
+
+.controls {
+  position: absolute; /* Абсолютне позиціонування над картою */
+  bottom: 0; /* Розташовано знизу */
+  left: 0;
+  width: 100%;
+  padding: 10px; /* Загальний відступ */
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  background-color: rgba(0, 0, 0, 0.7); /* Напівпрозорий чорний фон */
+  border-top: 2px solid rgba(51, 51, 51, 0.5); /* Напівпрозора межа зверху */
+  justify-content: center;
+  gap: 5px; /* Менший проміжок між елементами */
+  z-index: 998; /* Розміщено над картою, але під статистикою та повідомленнями */
+}
+
+/* Нові стилі для секції, що згортається */
+.collapsible-section {
+  width: 100%;
+  border: 1px solid rgba(68, 68, 68, 0.3); /* Більш прозора межа */
+  border-radius: 8px;
+  background-color: transparent; /* Прозорий фон для секції */
+  margin-bottom: 5px; /* Менший нижній відступ */
+  overflow: hidden;
+}
+
+.collapsible-header {
+  background-color: rgba(51, 51, 51, 0.6); /* Більш прозорий фон для заголовка */
+  color: #add8e6;
+  padding: 8px 12px; /* Менший відступ */
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid rgba(68, 68, 68, 0.4);
+}
+
+.collapsible-header:hover {
+  background-color: rgba(68, 68, 68, 0.7);
+}
+
+.collapsible-header h2 {
+  margin: 0;
+  font-size: 1.1em; /* Менший шрифт */
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+}
+
+.collapsible-header span {
+  font-size: 1.3em; /* Менший розмір стрілки */
+  transition: transform 0.3s ease;
+}
+
+.collapsible-header.collapsed span {
+  transform: rotate(-90deg); /* Обертаємо стрілку, коли секція згорнута */
+}
+
+.collapsible-content {
+  max-height: 300px; /* Зменшена максимальна висота */
+  transition: max-height 0.5s ease-out, padding 0.5s ease-out;
+  overflow: auto; /* Додано прокрутку, якщо контенту більше за висоту */
+  padding: 8px; /* Менший відступ */
+}
+
+.collapsible-content.collapsed {
+  max-height: 0;
+  padding: 0 8px; /* Без відступу, коли згорнутий */
+}
+
+
+.pvo-category-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 5px; /* Менший проміжок */
+  margin-bottom: 5px; /* Менший нижній відступ */
+  border: 1px solid rgba(68, 68, 68, 0.3); /* Більш прозора межа */
+  padding: 5px; /* Менший відступ */
+  border-radius: 8px;
+  background-color: rgba(0, 0, 0, 0.5); /* Напівпрозорий фон */
+}
+
+.pvo-category-row h3 {
+  width: 100%;
+  text-align: center;
+  color: #add8e6;
+  margin-top: 0;
+  margin-bottom: 5px;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+}
+
+
+/* === NEW: Styling for launchMessage to appear on the map === */
+#launchMessage {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(0, 0, 0, 0.7);
+  color: yellow;
+  font-size: 2em;
+  font-weight: bold;
+  padding: 20px 30px;
+  border-radius: 10px;
+  z-index: 1000;
+  display: none;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+  text-align: center;
+  white-space: nowrap;
+  box-shadow: 0 0 15px rgba(255, 255, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* NEW: Style for the image inside launchMessage */
+#radioImage {
+    display: none;
+    width: 50px;
+    height: 50px;
+    margin-top: 10px;
+}
+
+
+#map {
+  height: 100vh; /* Карта займає всю висоту вікна */
+  width: 100%;
+  background-color: #333;
+}
+
+/* Оновлені стилі для оверлею статистики гри */
+#gameStatsOverlay {
+  position: fixed;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 999; /* Нижче launchMessage, вище map та controls */
+  display: flex;
+  gap: 15px;
+  background-color: transparent;
+  padding: 8px 15px;
+  border-radius: 10px;
+  color: white;
+  font-size: 0.9em;
+  white-space: nowrap;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+}
+
+#coinDisplay,
+#interceptedDisplay,
+#waveDisplay,
+#waveTimerDisplay {
+  font-weight: bold;
+}
+
+/* Загальні стилі для всіх кнопок - прозорий фон */
+button {
+  background-color: transparent; /* Прозорий фон */
+  color: white;
+  border: 1px solid rgba(0, 123, 255, 0.5); /* Напівпрозора рамка */
+  padding: 6px 10px; /* Менший відступ */
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+  font-size: 12px; /* Менший шрифт */
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8); /* Тінь для тексту */
+}
+
+button:hover {
+  background-color: rgba(0, 123, 255, 0.2); /* Напівпрозорий фон при наведенні */
+  border-color: #007bff; /* Яскравіша рамка при наведенні */
+}
+
+.action-buttons-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 5px; /* Менший проміжок */
+  margin-top: 5px; /* Менший верхній відступ */
+}
+
+button.action-button {
+  min-width: 90px; /* Менша мінімальна ширина */
+  margin: 3px; /* Менший зовнішній відступ */
+}
+
+button.action-button:hover {
+  opacity: 0.9;
+  transform: scale(1.05);
+}
+
+/* Specific transparent button styles */
+.action-button.reset {
+  border-color: rgba(220, 53, 69, 0.5);
+}
+.action-button.reset:hover {
+  background-color: rgba(220, 53, 69, 0.2);
+  border-color: #dc3545;
+}
+
+.action-button.repair {
+  border-color: rgba(40, 167, 69, 0.5);
+}
+.action-button.repair:hover {
+  background-color: rgba(40, 167, 69, 0.2);
+  border-color: #28a745;
+}
+
+.action-button.build-factory {
+  border-color: rgba(255, 193, 7, 0.5);
+}
+.action-button.build-factory:hover {
+  background-color: rgba(255, 193, 7, 0.2);
+  border-color: #ffc107;
+}
+
+.action-button.fire-missile {
+  border-color: rgba(111, 66, 193, 0.5);
+}
+.action-button.fire-missile:hover {
+  background-color: rgba(111, 66, 193, 0.2);
+  border-color: #6f42c1;
+}
+
+.action-button.sell-pvo {
+  border-color: rgba(23, 162, 184, 0.5);
+}
+.action-button.sell-pvo:hover {
+  background-color: rgba(23, 162, 184, 0.2);
+  border-color: #17a2b8;
+}
+
+
+.pvo-select-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 5px; /* Менший відступ */
+  background-color: transparent; /* Прозорий фон */
+  color: white;
+  border: 1px solid rgba(85, 85, 85, 0.5); /* Напівпрозора рамка */
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.2s, border-color 0.2s;
+  min-width: 60px; /* Менша мінімальна ширина */
+  max-width: 80px; /* Менша максимальна ширина */
+  box-sizing: border-box;
+}
+
+.pvo-select-btn img {
+  width: 25px; /* Менший розмір іконки */
+  height: 25px; /* Менший розмір іконки */
+  margin-bottom: 3px; /* Менший відступ */
+}
+
+.pvo-select-btn span {
+  font-size: 0.65em; /* Менший шрифт */
+  text-align: center;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+}
+
+.pvo-select-btn:hover {
+  background-color: rgba(68, 68, 68, 0.2); /* Напівпрозорий фон при наведенні */
+  border-color: #777;
+}
+
+/* Забезпечуємо, що старі стилі pvo-btn також прозорі, якщо вони десь використовуються */
+.pvo-btn {
+  background-color: transparent !important; /* Прозорий фон */
+  border: 1px solid rgba(0, 123, 255, 0.4) !important; /* Напівпрозора рамка */
+  padding: 4px 8px !important; /* Менший відступ */
+  font-size: 11px !important; /* Менший шрифт */
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+}
+
+.pvo-btn img {
+  width: 20px !important; /* Менший розмір іконки */
+  height: 20px !important; /* Менший розмір іконки */
+  margin-right: 4px !important;
+}
+
+.pvo-btn span {
+  font-size: 0.7em !important;
+}
+
+.pvo-btn:hover {
+  background-color: rgba(0, 123, 255, 0.1) !important;
+  border-color: #007bff !important;
+}
+
+/* Модальне вікно */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.7);
+  backdrop-filter: blur(5px);
+}
+
+.modal-content {
+  background-color: #333;
+  margin: 5% auto;
+  padding: 30px;
+  border: 1px solid #888;
+  width: 80%;
+  max-width: 900px;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  position: relative;
+  color: #eee;
+}
+
+.modal-content h2 {
+    color: #5cb85c;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.close-button {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  position: absolute;
+  right: 15px;
+  top: 10px;
+  cursor: pointer;
+}
+
+.close-button:hover,
+.close-button:focus {
+  color: #fff;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* Контейнер дерева технологій */
+#techTreeContainer {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Менші мінімальні розміри */
+    gap: 15px; /* Менший проміжок */
+    padding: 10px;
+}
+
+.tech-node {
+    background-color: #444;
+    border: 2px solid #555;
+    border-radius: 8px;
+    padding: 10px; /* Менший відступ */
+    text-align: center;
+    transition: transform 0.2s, box-shadow 0.2s;
+    position: relative;
+    min-height: 100px; /* Менша мінімальна висота */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.tech-node.unlocked {
+    border-color: #5cb85c;
+    box-shadow: 0 0 10px rgba(92, 184, 92, 0.5);
+}
+
+.tech-node.locked {
+    border-color: #dc3545;
+    opacity: 0.7;
+}
+
+.tech-node h3 {
+    color: #eee;
+    margin-top: 0;
+    font-size: 1.1em; /* Менший шрифт */
+    margin-bottom: 8px;
+}
+
+.tech-node p {
+    font-size: 0.8em; /* Менший шрифт */
+    color: #bbb;
+    flex-grow: 1;
+}
+
+.tech-node button {
+    background-color: #007bff; /* Знову задаємо конкретний фон для кнопок в модальному вікні */
+    border: none;
+    padding: 6px 12px; /* Менший відступ */
+    border-radius: 5px;
+    font-weight: bold;
+    margin-top: 8px;
+}
+
+.tech-node button:hover:not(:disabled) {
+    background-color: #0056b3;
+}
+
+.tech-node button:disabled {
+    background-color: #6c757d;
+    cursor: not-allowed;
+    opacity: 0.8;
+}
+
+/* Індикація залежностей */
+.tech-node .dependency {
+    font-size: 0.7em; /* Менший шрифт */
+    color: #ffc107;
+    margin-top: 4px;
+}
